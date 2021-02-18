@@ -6,7 +6,7 @@
 #  one database of CRUNCEP v7 data (=CRUNCEP)
 # The PATHS need to be defined and it has to be made sure the required sub-folders exist #
 CRU_main = "/Users/sopank/Projects/toe_tools/CRUNCEP/"
-CRU_NCDF = CRU_main + 'v7/twodeg/'
+CRU_NCDF = CRU_main + 'v7/'
 CRU_TXT = CRU_main + 'txt_input/'
 CRU_HD_pr = CRU_main + 'HD_and_sens_pr/fullSeries/'
 CRU_HD_Tair = CRU_main + 'HD_and_sens_Tair/fullSeries/'
@@ -49,7 +49,7 @@ ESD_var_name_T = 'tas'
 xmin = 239.0
 xmax = 266.0
 ymax = 58.0
-ymin = 44.0
+ymin = 45.0
 # if no subset is wanted, leave the subset option in the ncdf2pd.nc_read_cruncep function blank
 subset = [ymax, xmin, ymin, xmax]
 

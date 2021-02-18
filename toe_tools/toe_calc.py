@@ -550,16 +550,16 @@ def calc_overlap(pd_dataframe, ww, precision, time_start, time_split, time_end, 
             continue
 
         # reference
-        y_ref = t_2d_ann_pd[RowCol].ix[time_start:time_split].values
+        y_ref = t_2d_ann_pd[RowCol].loc[time_start:time_split].values
         if np.isnan(y_ref).all():
             continue
 
         # target
-        y_tar = t_2d_ann_pd[RowCol].ix[time_split:time_end].values
+        y_tar = t_2d_ann_pd[RowCol].loc[time_split:time_end].values
 
         # target - half window
-        y_tar_ww = t_2d_ann_pd[RowCol].ix[str(int(time_split.split('-')[0]) - int(ww / 2)) + '-01-01':time_end].values
-        y_times_tar_ww = t_2d_ann_pd[RowCol].ix[
+        y_tar_ww = t_2d_ann_pd[RowCol].loc[str(int(time_split.split('-')[0]) - int(ww / 2)) + '-01-01':time_end].values
+        y_times_tar_ww = t_2d_ann_pd[RowCol].loc[
                          str(int(time_split.split('-')[0]) - int(ww / 2)) + '-01-01':time_end].index
         if np.isnan(y_tar).all():
             continue
@@ -593,8 +593,8 @@ def calc_overlap(pd_dataframe, ww, precision, time_start, time_split, time_end, 
             time_end_year = ts_index.max()
             ind_crop_lw = OUT_overlap_pd_sign.index <= int(time_split_year)
             ind_crop_up = OUT_overlap_pd_sign.index > int(time_end_year - int(ww / 2))
-            OUT_overlap_pd_sign.ix[(ind_crop_lw | ind_crop_up)] = np.NaN
-            OUT_overlap_pd.ix[(ind_crop_lw | ind_crop_up)] = np.NaN
+            OUT_overlap_pd_sign.loc[(ind_crop_lw | ind_crop_up)] = np.NaN
+            OUT_overlap_pd.loc[(ind_crop_lw | ind_crop_up)] = np.NaN
 
     return OUT_overlap_pd, OUT_overlap_pd_sign
 
@@ -648,16 +648,16 @@ def calc_ks_distance(pd_dataframe, ww, precision, time_start, time_split, time_e
             continue
 
         # reference
-        y_ref = t_2d_ann_pd[RowCol].ix[time_start:time_split].values
+        y_ref = t_2d_ann_pd[RowCol].loc[time_start:time_split].values
         if np.isnan(y_ref).all():
             continue
 
         # target
-        y_tar = t_2d_ann_pd[RowCol].ix[time_split:time_end].values
+        y_tar = t_2d_ann_pd[RowCol].loc[time_split:time_end].values
 
         # target - half window
-        y_tar_ww = t_2d_ann_pd[RowCol].ix[str(int(time_split.split('-')[0]) - int(ww / 2)) + '-01-01':time_end]
-        y_times_tar_ww = t_2d_ann_pd[RowCol].ix[
+        y_tar_ww = t_2d_ann_pd[RowCol].loc[str(int(time_split.split('-')[0]) - int(ww / 2)) + '-01-01':time_end]
+        y_times_tar_ww = t_2d_ann_pd[RowCol].loc[
                          str(int(time_split.split('-')[0]) - int(ww / 2)) + '-01-01':time_end].index
         if np.isnan(y_tar).all():
             continue
@@ -714,8 +714,8 @@ def calc_ks_distance(pd_dataframe, ww, precision, time_start, time_split, time_e
             time_end_year = ts_index.max()
             ind_crop_lw = OUT_overlap_pd.index <= int(time_split_year)
             ind_crop_up = OUT_overlap_pd.index > int(time_end_year - int(ww / 2))
-            # OUT_overlap_pd_sign.ix[(ind_crop_lw | ind_crop_up)] = np.NaN
-            OUT_overlap_pd.ix[(ind_crop_lw | ind_crop_up)] = np.NaN
+            # OUT_overlap_pd_sign.loc[(ind_crop_lw | ind_crop_up)] = np.NaN
+            OUT_overlap_pd.loc[(ind_crop_lw | ind_crop_up)] = np.NaN
 
     return OUT_overlap_pd #, OUT_overlap_pd_sign
 
@@ -767,16 +767,16 @@ def calc_ks_2samp_distance(pd_dataframe, ww, time_start, time_split, time_end, c
             continue
 
         # reference
-        y_ref = t_2d_ann_pd[RowCol].ix[time_start:time_split].values
+        y_ref = t_2d_ann_pd[RowCol].loc[time_start:time_split].values
         if np.isnan(y_ref).all():
             continue
 
         # target
-        y_tar = t_2d_ann_pd[RowCol].ix[time_split:time_end].values
+        y_tar = t_2d_ann_pd[RowCol].loc[time_split:time_end].values
 
         # target - half window
-        y_tar_ww = t_2d_ann_pd[RowCol].ix[str(int(time_split.split('-')[0]) - int(ww / 2)) + '-01-01':time_end]
-        y_times_tar_ww = t_2d_ann_pd[RowCol].ix[
+        y_tar_ww = t_2d_ann_pd[RowCol].loc[str(int(time_split.split('-')[0]) - int(ww / 2)) + '-01-01':time_end]
+        y_times_tar_ww = t_2d_ann_pd[RowCol].loc[
                          str(int(time_split.split('-')[0]) - int(ww / 2)) + '-01-01':time_end].index
         if np.isnan(y_tar).all():
             continue
@@ -799,8 +799,8 @@ def calc_ks_2samp_distance(pd_dataframe, ww, time_start, time_split, time_end, c
             time_end_year = ts_index.max()
             ind_crop_lw = OUT_overlap_pd.index <= int(time_split_year)
             ind_crop_up = OUT_overlap_pd.index > int(time_end_year - int(ww / 2))
-            # OUT_overlap_pd_sign.ix[(ind_crop_lw | ind_crop_up)] = np.NaN
-            OUT_overlap_pd.ix[(ind_crop_lw | ind_crop_up)] = np.NaN
+            # OUT_overlap_pd_sign.loc[(ind_crop_lw | ind_crop_up)] = np.NaN
+            OUT_overlap_pd.loc[(ind_crop_lw | ind_crop_up)] = np.NaN
 
     return OUT_overlap_pd #, OUT_overlap_pd_sign
 
@@ -868,17 +868,17 @@ def calc_overlap_hist(pd_dataframe, ww, precision, time_start, time_split, time_
             continue
 
         # reference
-        y_ref = t_2d_ann_pd[RowCol].ix[time_start:time_split]
+        y_ref = t_2d_ann_pd[RowCol].loc[time_start:time_split]
         if np.isnan(y_ref).values.all():
             continue
 
         # target
-        y_tar = t_2d_ann_pd[RowCol].ix[time_split:time_end]
+        y_tar = t_2d_ann_pd[RowCol].loc[time_split:time_end]
 
         # target - half window
-        y_tar_ww = t_2d_ann_pd[RowCol].ix[
+        y_tar_ww = t_2d_ann_pd[RowCol].loc[
                    str(int(time_split.split('-')[0]) - int(ww / 2)) + '-01-01':time_end]  # removed .values
-        y_times_tar_ww = t_2d_ann_pd[RowCol].ix[
+        y_times_tar_ww = t_2d_ann_pd[RowCol].loc[
                          str(int(time_split.split('-')[0]) - int(ww / 2)) + '-01-01':time_end].index
         if np.isnan(y_tar).all():
             continue
@@ -942,8 +942,8 @@ def calc_overlap_hist(pd_dataframe, ww, precision, time_start, time_split, time_
             time_end_year = ts_index.max()
             ind_crop_lw = OUT_overlap_pd_sign.index <= int(time_split_year)
             ind_crop_up = OUT_overlap_pd_sign.index > int(time_end_year - int(ww / 2))
-            OUT_overlap_pd_sign.ix[(ind_crop_lw | ind_crop_up)] = np.NaN
-            OUT_overlap_pd.ix[(ind_crop_lw | ind_crop_up)] = np.NaN
+            OUT_overlap_pd_sign.loc[(ind_crop_lw | ind_crop_up)] = np.NaN
+            OUT_overlap_pd.loc[(ind_crop_lw | ind_crop_up)] = np.NaN
 
     return OUT_overlap_pd, OUT_overlap_pd_sign
 

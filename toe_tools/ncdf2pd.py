@@ -15,7 +15,7 @@ def max_char_ll(lats, lons):
     return (nchr_len_max)
 
 
-def matrix_coords(lats, lons, lon_min, lon_max, lat_min, lat_max, upsidedown=False):
+def matrix_coords(lats, lons, lon_min, lon_max, lat_min, lat_max, upsidedown=True):
     """
 
     :param lats: nc lats of pixel centers
@@ -54,7 +54,7 @@ def matrix_coords(lats, lons, lon_min, lon_max, lat_min, lat_max, upsidedown=Fal
     return latli, latui, lonli, lonui
 
 
-def nc_read_cruncep(nc_file, var_name, subset=None, lon_name='nav_lon', lat_name='nav_lat', time_name='time',
+def nc_read_cruncep(nc_file, var_name, subset=None, lon_name='LONGXY', lat_name='LATIXY', time_name='time',
                     header_str_len=False):
     """
     Will need specification for CMIP5 monthly, CRU-NCEP, and other data due to their slightly different
@@ -86,9 +86,9 @@ def nc_read_cruncep(nc_file, var_name, subset=None, lon_name='nav_lon', lat_name
     # subset = [ymax,xmin,ymin, xmax]
 
     nc = Dataset(nc_file, mode='r')
-
-    ytar = nc.variables[lat_name][:, 0]
-    xtar = nc.variables[lon_name][0, :]
+    nc1 = Dataset("/Users/sopank/Projects/toe_tools/CRUNCEP/ALL_PRCP.nc",mode='r')
+    ytar = nc1.variables[lat_name][:, 0]
+    xtar = nc1.variables[lon_name][0, :]
 
     # latitude lower and upper index
     if subset:
@@ -99,7 +99,7 @@ def nc_read_cruncep(nc_file, var_name, subset=None, lon_name='nav_lon', lat_name
 
     # get matrix coordinates
     latli, latui, lonli, lonui = matrix_coords(lats=ytar, lons=xtar, lon_min=xmin, lon_max=xmax, lat_min=ymin,
-                                               lat_max=ymax, upsidedown=True)
+                                               lat_max=ymax, upsidedown=False)
 
     d_time = nc.variables[time_name]
 
@@ -109,17 +109,20 @@ def nc_read_cruncep(nc_file, var_name, subset=None, lon_name='nav_lon', lat_name
     # array([55., 57., 59., 61., 63., 65., 67., 69., 71., 73.], dtype=float32)
 
     latslons_list = [xtar[lonli:(lonui + 1)], ytar[np.arange(latli, latui + 1, 1)]]
-
+    print(latslons_list)
+    
     # create needed output for pandas
     # t_step_H = d_time.tstep_sec / 60. / 60.
     # ts_len = d_time.__len__()
     ts_start = d_time.units
-    ts_dates = num2date(d_time[:], ts_start)
+    ts_dates = num2date(d_time[:], ts_start,only_use_cftime_datetimes=False,only_use_python_datetimes=True)
+    # ts_dates = num2date(d_time[:], ts_start)
     dates = pd.to_datetime(ts_dates)
 
     # pd.datetime(ts_dates[0])
     # pd.date_range('1901-01-01', periods=ts_len, freq='6H')
     data_ss = nc.variables[var_name][:, latli:(latui + 1), lonli:(lonui + 1)]
+    print(data_ss)
     # plt.imshow(data_ss[0,:,:])
 
     # collapse to 2D for pandas

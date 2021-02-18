@@ -2,7 +2,8 @@
 from tqdm import tqdm
 from toe_tools.paths import *
 from toe_tools.toe_calc import *
-
+import matplotlib.pyplot as plt
+  
 # #### PARAMETERS
 _aggregate = agg_fun(CRU_var_name_P)
 

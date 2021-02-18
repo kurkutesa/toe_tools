@@ -1,5 +1,6 @@
 from toe_tools.ncdf2pd import *
 from toe_tools.paths import *
+import matplotlib.pyplot as plt 
 
 var_name = 'TBOT'
 lon_name = 'LONGXY'
