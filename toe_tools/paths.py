@@ -5,7 +5,7 @@
 #  one set of CMIP5 model simulations (=ESD)
 #  one database of CRUNCEP v7 data (=CRUNCEP)
 # The PATHS need to be defined and it has to be made sure the required sub-folders exist #
-CRU_main = "/Users/pohl3/tmp/CRUNCEP/"
+CRU_main = "/Users/sopank/Projects/toe_tools/CRUNCEP/"
 CRU_NCDF = CRU_main + 'v7/twodeg/'
 CRU_TXT = CRU_main + 'txt_input/'
 CRU_HD_pr = CRU_main + 'HD_and_sens_pr/fullSeries/'
@@ -35,21 +35,21 @@ XSPLIT_year = 1921  # the standard year to split the time series
 XSPLIT = str(XSPLIT_year) + '-01-01'  # in a YYYY-MM-DD format for pandas
 XMIN_year = 1901  # the standard year to start the analysis
 XMIN = str(XMIN_year) + '-01-01'  # the standard to start the analysis
-XMAX_year = 2100  # the standard year to stop the time series
+XMAX_year = 2016  # the standard year to stop the time series
 XMAX = str(XMAX_year) + '-12-01'  # the standard to stop the time series
 
-CRU_var_name_P = 'pr'
-CRU_var_name_T = 'Tair'
+CRU_var_name_P = 'PRECTmms'
+CRU_var_name_T = 'TBOT'
 CRU_var_name_Snow = 'Snowf'
 CRU_var_name_Rain = 'Rainf'
 ESD_var_name_P = 'pr'
 ESD_var_name_T = 'tas'
 
 # the bounding box to extract the data
-xmin = 102.0
-xmax = 142.0
-ymax = 74.0
-ymin = 52.0
+xmin = 239.0
+xmax = 266.0
+ymax = 58.0
+ymin = 44.0
 # if no subset is wanted, leave the subset option in the ncdf2pd.nc_read_cruncep function blank
 subset = [ymax, xmin, ymin, xmax]
 
@@ -66,11 +66,11 @@ def agg_fun(str):
         retfun = 'sum'
     elif str == 'tas':
         retfun = 'mean'
-    elif str == 'Tair':
+    elif str == 'TBOT':
         retfun = 'mean'
     elif str == 'Snowf':
         retfun = 'sum'
-    elif str == 'Rainf':
+    elif str == 'PRECTmms':
         retfun = 'sum'
     else:
         print('unknow variable or unknown way how to aggregate values! - Add definition in "paths.py" please ...')
